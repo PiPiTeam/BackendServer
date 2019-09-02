@@ -1,0 +1,6 @@
+import os
+
+SECRET_KEY = os.getenv("SECRET_KEY")
+SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE")
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+REDIS_URL = os.getenv("REDIS")

@@ -1,0 +1,22 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+flask = "*"
+flask-sqlalchemy = "*"
+python-dotenv = "*"
+pymysql = "*"
+flask-shell-ipython = "*"
+flask-migrate = "*"
+flask-restful = "*"
+flask-wtf = "*"
+sqlalchemy-utils = "*"
+ipython = "*"
+flask-redis = "*"
+
+[requires]
+python_version = "3.6"
