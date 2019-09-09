@@ -1,4 +1,4 @@
-from flask import Flask, make_response
+from flask import Flask
 import settings
 import views
 from extensions import db, migrate, api, redis
@@ -29,15 +29,6 @@ app = create_app()
 init_models()
 
 
-def make_bad_response(response):
-    data = OrderedDict({
-        "code": 1,
-        "message": "",
-        "data": response.json['errors']
-    })
-    return make_response(data, response.status_code)
-
-
 @app.after_request
 def handler_response(response):
     if response.content_type == 'application/json' and 200 <= response.status_code <= 209:
@@ -47,3 +38,4 @@ def handler_response(response):
             "data": response.json
         })
         return make_response(data, response.status_code)
+    return response
