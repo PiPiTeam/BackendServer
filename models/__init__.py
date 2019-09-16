@@ -1,2 +1,2 @@
 def init_models():
-    from .admin import Feedback
+    from .admin import Feedback, Product, ProductBanner, ProductDetail
