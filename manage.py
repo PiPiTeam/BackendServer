@@ -1,4 +1,6 @@
 from flask import Flask
+from flask_cors import CORS
+
 import settings
 import views
 from extensions import db, migrate, api, redis
@@ -9,6 +11,7 @@ from flask import make_response
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
     app.config.from_object(settings)
 
     # db

@@ -18,6 +18,7 @@ sqlalchemy-utils = "*"
 ipython = "*"
 flask-redis = "*"
 gunicorn = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.6"
