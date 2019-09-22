@@ -18,6 +18,7 @@ class Product(db.Model, Timestamp):
     is_home = db.Column(db.Boolean, default=False)
     banners = db.relationship('ProductBanner')
     details = db.relationship('ProductDetail')
+    category_id = db.Column(db.Integer, db.ForeignKey('product_category.id'))
 
 
 class ProductBanner(db.Model, Timestamp):
@@ -30,3 +31,9 @@ class ProductDetail(db.Model, Timestamp):
     id = db.Column(db.Integer, primary_key=True)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     url = db.Column(db.String(2048))
+
+
+class ProductCategory(db.Model, Timestamp):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64))
+    products = db.relationship('Product')

@@ -5,6 +5,8 @@ from models.admin import Feedback
 from views.parsers.common import feedback_parser
 
 feedback_fields = {
+    'created': fields.DateTime(dt_format='iso8601'),
+    'updated': fields.DateTime(dt_format='iso8601'),
     'id': fields.Integer,
     'username': fields.String,
     'email': fields.String,
@@ -13,12 +15,25 @@ feedback_fields = {
 }
 
 
+def pagination_fields(items_fields):
+    return {
+        'has_next': fields.Boolean,
+        'has_prev': fields.Boolean,
+        'items': fields.Nested(items_fields),
+        'next_num': fields.Integer,
+        'page': fields.Integer,
+        'pages': fields.Integer,
+        'per_page': fields.Integer,
+        'prev_num': fields.Integer
+    }
+
+
 class FeedbackView(Resource):
 
-    @marshal_with(feedback_fields)
+    @marshal_with(pagination_fields(feedback_fields))
     def get(self):
-        instances = Feedback.query.limit(10).all()
-        return instances
+        pagination = Feedback.query.paginate()
+        return pagination
 
     @marshal_with(feedback_fields)
     def post(self):
