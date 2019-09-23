@@ -36,4 +36,4 @@ class ProductDetail(db.Model, Timestamp):
 class ProductCategory(db.Model, Timestamp):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
-    products = db.relationship('Product')
+    products = db.relationship('Product', backref='category')
