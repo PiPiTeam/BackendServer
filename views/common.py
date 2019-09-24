@@ -1,8 +1,12 @@
+import os
+import time
+
 from flask_restful import Resource, fields, marshal_with
 
 from extensions import db
 from models.admin import Feedback
-from views.parsers.common import feedback_parser
+from settings import FILE_DIR, FILE_SERVER_DOMAIN
+from views.parsers.common import feedback_parser, file_upload_parser
 
 feedback_fields = {
     'created': fields.DateTime(dt_format='iso8601'),
@@ -42,3 +46,14 @@ class FeedbackView(Resource):
         db.session.add(instance)
         db.session.commit()
         return instance, 201
+
+
+class FileUploadView(Resource):
+
+    def post(self):
+        args = file_upload_parser.parse_args()
+        file = args['file']
+        filename = str(int(time.time() * 1000)) + os.path.splitext(file.filename)[1]
+        file_path = os.path.join(FILE_DIR, filename)
+        file.save(file_path)
+        return {'url': FILE_SERVER_DOMAIN + '/images/' + filename}, 201

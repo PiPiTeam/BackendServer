@@ -2,6 +2,7 @@ from decimal import Decimal
 
 from flask_restful import inputs
 from flask_restful.reqparse import RequestParser
+from werkzeug.datastructures import FileStorage
 
 feedback_parser = RequestParser(bundle_errors=True)
 feedback_parser.add_argument("username", type=str, required=True, nullable=False)
@@ -28,3 +29,6 @@ product_query_parser = RequestParser(bundle_errors=True)
 product_query_parser.add_argument("name", type=str, required=False, location='values')
 product_query_parser.add_argument("category_name", type=str, required=False, location='values')
 product_query_parser.add_argument("is_home", type=inputs.boolean, required=False, location='values')
+
+file_upload_parser = RequestParser(bundle_errors=True)
+file_upload_parser.add_argument("file", type=FileStorage, required=True, nullable=False, location='files')
